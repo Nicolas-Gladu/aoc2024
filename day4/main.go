@@ -3,6 +3,7 @@ package main
 import (
 	"Majha/AdvantOfCode/pkg"
 	"fmt"
+	"time"
 )
 
 const (
@@ -26,13 +27,17 @@ func newWordFinder(data []string) wordFinder {
 }
 
 func main() {
-	challenge, err := pkg.NewDayChallenge("input.txt")
+	challenge, err := pkg.NewDayChallenge("day4/input.txt")
 	if err != nil {
 		panic(err)
 	}
+	now := time.Now()
 	result := solutionPart1(challenge.Inputs)
+	fmt.Println("time taken:", time.Since(now).Microseconds())
 	fmt.Println("result1:", result)
+	now = time.Now()
 	result = solutionPart2(challenge.Inputs)
+	fmt.Println("time taken:", time.Since(now).Microseconds())
 	fmt.Println("result2:", result)
 }
 
@@ -47,10 +52,10 @@ func solutionPart1(data []string) int {
 			finder.backward(x, y)
 			finder.upward(x, y)
 			finder.downward(x, y)
-			finder.upright(x, y)
-			finder.downright(x, y)
-			finder.upleft(x, y)
-			finder.downleft(x, y)
+			finder.upRight(x, y)
+			finder.downRight(x, y)
+			finder.upLeft(x, y)
+			finder.downLeft(x, y)
 		}
 	}
 	return finder.total
@@ -124,7 +129,7 @@ func (w *wordFinder) downward(x, y int) {
 	w.total++
 }
 
-func (w *wordFinder) upright(x, y int) {
+func (w *wordFinder) upRight(x, y int) {
 	if w.upCheck(y) || w.rightCheck(x) {
 		return
 	}
@@ -137,7 +142,7 @@ func (w *wordFinder) upright(x, y int) {
 	w.total++
 }
 
-func (w *wordFinder) downright(x, y int) {
+func (w *wordFinder) downRight(x, y int) {
 	if w.downCheck(y) || w.rightCheck(x) {
 		return
 	}
@@ -150,7 +155,7 @@ func (w *wordFinder) downright(x, y int) {
 	w.total++
 }
 
-func (w *wordFinder) upleft(x, y int) {
+func (w *wordFinder) upLeft(x, y int) {
 	if w.upCheck(y) || w.leftCheck(x) {
 		return
 	}
@@ -163,7 +168,7 @@ func (w *wordFinder) upleft(x, y int) {
 	w.total++
 }
 
-func (w *wordFinder) downleft(x, y int) {
+func (w *wordFinder) downLeft(x, y int) {
 	if w.downCheck(y) || w.leftCheck(x) {
 		return
 	}
